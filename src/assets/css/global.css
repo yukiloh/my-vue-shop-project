@@ -1,0 +1,7 @@
+/*全局css样式,让他撑满整个屏幕*/
+html,body,#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
