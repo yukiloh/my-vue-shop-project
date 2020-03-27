@@ -57,7 +57,7 @@
 export default {
 
   //定义数据
-  meta() {
+  data() {
     return {
       //登陆表单的数据
       loginForm: {
@@ -104,9 +104,9 @@ export default {
         //因为axios返回的是一个promise,所以可以用async和await来接收!
         //async需要修饰在紧挨着await的方法上,而这里的方法是是箭头函数,加在↑!
         //通过解构赋值,将返回的data直接赋值为result
-        let {meta: result} = await this.axios.post('login',this.loginForm);
+        let {data: result} = await this.axios.post('login',this.loginForm);
         console.log(result);
-        
+
         if (result.data.status !== 200) return console.log('login failed!');
         else console.log('login success!');
       })
