@@ -1,5 +1,5 @@
 # my-vue-shop-project
-
+1
 ## Project setup
 ```
 npm install
