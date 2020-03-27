@@ -57,7 +57,7 @@
 export default {
 
   //定义数据
-  data() {
+  meta() {
     return {
       //登陆表单的数据
       loginForm: {
@@ -68,12 +68,12 @@ export default {
       loginRules: {
         //验证用户名的合法性
         username: [
-          {require: true,message: '需要用户名',trigger: blur}, //参数解释:必选,提示信息,当失去焦点时触发
+          {required: true,message: '需要用户名',trigger: blur}, //参数解释:必选,提示信息,当失去焦点时触发
           {min: 6,max: 10,message: '长度在 6 到 10 个字符',trigger: 'blur'}  //最小,最大,提示信息,当失焦
         ],
         //密码的合法性
         password: [
-          {require: true,message: '需要密码',trigger: blur},
+          {required: true,message: '需要密码',trigger: blur},
           {min: 6,max: 10,message: '长度在 6 到 10 个字符',trigger: 'blur'}
         ],
       }
@@ -96,16 +96,18 @@ export default {
       //和重置表单一样,需要先获取表单对象(loginFormRef)来进行后续的操作
       this.$refs.loginFormRef.validate( async valid => {
         // console.log(valid); //true/false,判断条件依据 ↑的loginRules决定,满足则true
-        if (!valid) return; //不满足则直接返回
+        if (!valid) {
+          return;   //不满足则直接返回
+        }
 
         //通过axios发起登陆请求;  需要在main.js中进行配置!  需要明白此处的this是Vue!!否则需要导入Vue
         //因为axios返回的是一个promise,所以可以用async和await来接收!
         //async需要修饰在紧挨着await的方法上,而这里的方法是是箭头函数,加在↑!
         //通过解构赋值,将返回的data直接赋值为result
-        let {data: result} = await this.axios.post('login',this.loginForm);
+        let {meta: result} = await this.axios.post('login',this.loginForm);
         console.log(result);
         
-        if (result.meta.status !== 200) return console.log('login failed!');
+        if (result.data.status !== 200) return console.log('login failed!');
         else console.log('login success!');
       })
 
