@@ -117,7 +117,6 @@ export default {
           this.$message.success('登陆成功！');
           window.sessionStorage.setItem('token',result.data.token);
           this.$router.push('/home');
-          alert(1111)
         }
       })
 
