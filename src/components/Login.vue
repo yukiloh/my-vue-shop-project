@@ -105,10 +105,15 @@ export default {
         //async需要修饰在紧挨着await的方法上,而这里的方法是是箭头函数,加在↑!
         //通过解构赋值,将返回的data直接赋值为result
         let {data: result} = await this.axios.post('login',this.loginForm);
-        console.log(result);
 
-        if (result.data.status !== 200) return console.log('login failed!');
-        else console.log('login success!');
+        //返回的data的结构参考/forTest/下的响应数据参考图
+        if (result.meta.status !== 200) {
+          // return console.log('login failed!'); //测试用
+          this.$message.error('登陆失败!')
+        }else {
+          // console.log('login success!'); //测试用
+          this.$message.success('登陆成功!')
+        }
       })
 
     }
