@@ -23,4 +23,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 参考视频地址
 https://www.bilibili.com/video/BV1EE411B7SU
 
-112233
+#### 合并分支
+git checkout 主分支
+git merge 需要合并的副分支
+
