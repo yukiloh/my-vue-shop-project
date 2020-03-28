@@ -61,8 +61,8 @@ export default {
     return {
       //登陆表单的数据
       loginForm: {
-        username: '',
-        password: '',
+        username: 'goudan',
+        password: '111111',
       },
       //表单验证规则
       loginRules: {
@@ -108,11 +108,15 @@ export default {
 
         //返回的data的结构参考/forTest/下的响应数据参考图
         if (result.meta.status !== 200) {
+
           // return console.log('login failed!'); //测试用
-          this.$message.error('登陆失败!')
+          this.$message.error('登陆失败！')
+
         }else {
           // console.log('login success!'); //测试用
-          this.$message.success('登陆成功!')
+          this.$message.success('登陆成功！');
+          window.sessionStorage.setItem('token',result.data.token);
+          this.$router.push('/home');
         }
       })
 
