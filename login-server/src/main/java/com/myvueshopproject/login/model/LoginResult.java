@@ -2,12 +2,12 @@ package com.myvueshopproject.login.model;
 
 import java.io.Serializable;
 
-public class BaseResult implements Serializable {
+public class LoginResult implements Serializable {
 
     private Data data;
     private Meta meta;
 
-    public BaseResult(Integer id,Integer rid,String username,String mobile,String email,String token,Boolean isOk) {
+    public LoginResult(Integer id, Integer rid, String username, String mobile, String email, String token, Boolean isOk) {
         this.data = new Data(id,rid,username,mobile,email,token);
 
         String msg;
