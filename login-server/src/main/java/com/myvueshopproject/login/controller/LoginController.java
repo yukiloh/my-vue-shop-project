@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @RequestMapping("/my-vue-shop-project")
 public class LoginController {
 
+    //登陆
     @PostMapping("/login")
     //通过RequestBody来接收json类型的对象,完全忘记了
     public LoginResult login(@RequestBody LoginParam loginParam) {
@@ -21,8 +22,9 @@ public class LoginController {
         else return new LoginResult(0, 0, "", "", "", "", false);
     }
 
+
+    //菜单
     @GetMapping("/menu")
-    //通过RequestBody来接收json类型的对象,完全忘记了
     public MenuResult menu() {
         ArrayList<MenuResult.Data> children = new ArrayList<>();
         children.add(new MenuResult.Data(104,"商品列表",null,new ArrayList<>()));
