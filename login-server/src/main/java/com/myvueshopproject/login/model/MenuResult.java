@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class MenuResult implements Serializable {
 
-    private Data data;
+    private ArrayList<Data> data;
     private Meta meta;
 
-    public MenuResult(Integer id, String authName, String path, ArrayList<Data> children) {
-        this.data = new Data(id,authName,path,children);
+    public MenuResult(ArrayList<Data> children) {
+        this.data = children;
 
         String msg = "获取菜单列表成功";
         int status = 200;
@@ -17,12 +17,11 @@ public class MenuResult implements Serializable {
         this.meta = new Meta(msg,status);
     }
 
-
-    public Data getData() {
+    public ArrayList<Data> getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(ArrayList<Data> data) {
         this.data = data;
     }
 
