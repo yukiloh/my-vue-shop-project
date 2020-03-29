@@ -34,22 +34,26 @@
             active-text-color="#ffd04b">
 
           <!-- 一级菜单-->
-          <el-submenu index="1" >
+          <!-- 菜单也是通过后台获取的数据; 根据获取的数据来遍历-->
+          <!-- :index 动态数据绑定--> <!-- index必须唯一,eleUI是同故宫index来控制哪个菜单被打开/折叠 -->
+          <!--index的值必须是string,但是接收的int,所以加个''强转-->
+          <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
 
             <!-- 一级菜单模板区(显示区)-->
             <template slot="title">
               <!-- 图标 -->
               <i class="el-icon-location"></i>
               <!-- 文本 -->
-              <span>导航一</span>
+              <span>{{item.authName}}</span>
             </template>
 
             <!-- 二级菜单,添加后使得一级菜单可以弹出二级菜单 -->
-            <el-menu-item index="1-2">
+            <!-- v-for 中不能用大写..... -->
+            <el-menu-item :index="sub_item.id+''" v-for="sub_item in item.children" :key="sub_item.id">
               <!-- 二级菜单的内容与一级菜单的模板去一样;  如果需要再添加一级则再template标签后再添加el-menu-item即可-->
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span>导航一</span>
+                <span>{{sub_item.authName}}</span>
               </template>
             </el-menu-item>
 
@@ -99,13 +103,15 @@
       //获取左侧菜单; 因为是axios的异步调用所以async+await;
       async getMenuList() {
         const {data:res} = await this.axios.get('menu');    //错误点:解构赋值,将返回数据中的data,赋值为res!
-        console.log(res); //测试用
+        // console.log(res); //测试用
 
         //如果数据返回失败则调用eleUI的错误message显示信息
-        if (res.meta.status != 200) return this.$message.error(res.meta.msg);
+        if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
 
         //如果数据返回成功,则将获取到的res赋值到data中
-        this.menuList = res.data;
+        this.menuList[0] = res.data;
+        console.log(menuList);
+
 
       }
     }
