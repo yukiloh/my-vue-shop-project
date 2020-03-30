@@ -63,26 +63,23 @@ public class MainController {
     @GetMapping("/users")
     public UsersResult users(
             @RequestParam(name="query", required=false) String query,
-            @RequestParam(name="pagenum", required=false) Integer pagenum,
-            @RequestParam(name="pagesize", required=false) Integer pageSize
+            @RequestParam(name="currentPage", required=false) Integer currentPage,
+            @RequestParam(name="pageSize", required=false) Integer pageSize
     ) {
 
         UsersResult.Users admin = new UsersResult.Users(777, "admin", "777", 1, "admin@admin.com", new Date(), true, "超级管理员");
+        UsersResult.Users manager = new UsersResult.Users(666, "manager", "666", 2, "mng@mng.com", new Date(), true, "管理员");
         ArrayList<UsersResult.Users> list = new ArrayList<>();
         list.add(admin);
+        list.add(manager);
 
         //手动实现分页...
-        if (pageSize == null || pageSize != 1) {
-            UsersResult.Users manager = new UsersResult.Users(666, "manager", "666", 2, "mng@mng.com", new Date(), true, "管理员");
-            list.add(manager);
-
-            //如果既让每页显示1个又请求第二页,那么就返回只带第二页的data...
-            if (pagenum == 2) {
-                list.remove(admin);
-                return new UsersResult( new UsersResult.Data(list.size(), 2, list));
+        if (pageSize != null && currentPage != null) {
+            if (pageSize == 1) {
+                if (currentPage == 1) list.remove(manager);
+                else if (currentPage == 2) list.remove(admin);
             }
         }
-
         return new UsersResult( new UsersResult.Data(list.size(), 1, list));
     }
 }
