@@ -61,13 +61,26 @@ public class MainController {
 
     //用户
     @GetMapping("/users")
-    public UsersResult users() {
+    public UsersResult users(
+            @RequestParam(name="query", required=false) String query,
+            @RequestParam(name="pagenum", required=false) Integer pagenum,
+            @RequestParam(name="pagesize", required=false) Integer pageSize
+    ) {
+
+
+
+
 
         UsersResult.Users admin = new UsersResult.Users(777, "admin", "777", 1, "admin@admin.com", new Date(), true, "超级管理员");
-        UsersResult.Users manager = new UsersResult.Users(666, "manager", "666", 2, "mng@mng.com", new Date(), true, "管理员");
         ArrayList<UsersResult.Users> list = new ArrayList<>();
         list.add(admin);
-        list.add(manager);
+
+        UsersResult.Users manager = null;
+        if (pageSize == null || pageSize != 1) {
+            manager = new UsersResult.Users(666, "manager", "666", 2, "mng@mng.com", new Date(), true, "管理员");
+            list.add(manager);
+        }
+
         return new UsersResult( new UsersResult.Data(list.size(), 1, list));
     }
 }
