@@ -3,14 +3,16 @@ package com.myvueshopproject.login.controller;
 import com.myvueshopproject.login.model.LoginResult;
 import com.myvueshopproject.login.model.LoginParam;
 import com.myvueshopproject.login.model.MenuResult;
+import com.myvueshopproject.login.model.UsersResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/my-vue-shop-project")
-public class LoginController {
+public class MainController {
 
     //登陆
     @PostMapping("/login")
@@ -54,5 +56,18 @@ public class LoginController {
         parent.add(new MenuResult.Data(501,"数据统计",null,children5));
 
         return new MenuResult(parent);
+    }
+
+
+    //用户
+    @GetMapping("/users")
+    public UsersResult users() {
+
+        UsersResult.Users admin = new UsersResult.Users(777, "admin", "777", 1, "admin@admin.com", new Date(), true, "超级管理员");
+        UsersResult.Users manager = new UsersResult.Users(666, "manager", "666", 2, "mng@mng.com", new Date(), true, "管理员");
+        ArrayList<UsersResult.Users> list = new ArrayList<>();
+        list.add(admin);
+        list.add(manager);
+        return new UsersResult( new UsersResult.Data(list.size(), 1, list));
     }
 }

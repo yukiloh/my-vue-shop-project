@@ -30,20 +30,23 @@
         <div class="toggle-button" @click="toggleCollapse">{{toggleIcon}}</div>
 
         <!-- 侧边栏菜单区;添加了新的元素同样需要重新引入 -->
-        <!-- active-text-color: 选中时的高亮颜色-->
+
         <!-- unique-opened:每次只打开1个菜单; 加上:让值为布尔值,不加则是string,如果只填写unique-opened也表示打开该选项 -->
         <!-- collapse:是否开启折叠,具体的布尔值绑定到data中方便toggleCollapse进行切换-->
         <!-- collapse-transition: 是否开启动画效果,比较丑就关了 -->
         <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/menu Menu Attribute中的collapse属性-->
-        <!-- router: 开启跳转,会跳转至index所对应的地址上-->
+        <!-- router: 开启跳转,会跳转至index所对应的地址上(只对二级菜单有效)-->
+        <!-- 修改了index后原本的自动高亮消失,需要设置default-active来指定哪个菜单高亮;  可以从$route.path来获取当前页面的地址-->
+        <!-- active-text-color: 选中时的高亮颜色-->
         <el-menu
             background-color="#373744"
             text-color="#fff"
-            active-text-color="#409BFF"
             :unique-opened="true"
             :collapse="isCollapse"
             :collapse-transition="false"
             :router="true"
+            :default-active="$route.path"
+            active-text-color="#409BFF"
         >
 
           <!-- 一级菜单-->
@@ -63,7 +66,7 @@
 
             <!-- 二级菜单,添加后使得一级菜单可以弹出二级菜单 -->
             <!-- 二级菜单的index需要router跳转,所以设为path的值-->
-            <el-menu-item :index="'/' + item.path" v-for="subItem in item.children" :key="subItem.id">
+            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id">
               <!-- 二级菜单的内容与一级菜单的模板去一样;  如果需要再添加一级则再template标签后再添加el-menu-item即可-->
               <template slot="title">
                 <!-- 二级图标都是menu -->

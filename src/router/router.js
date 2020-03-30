@@ -3,6 +3,12 @@ import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
+import Users from '../components/user/Users.vue'
+import Goods from '../components/goods/Goods.vue'
+import Perm from '../components/roles/Perm.vue'
+import Orders from '../components/orders/Orders.vue'
+import Stats from '../components/stats/Stats.vue'
+import Roles from "../components/roles/Roles";
 
 Vue.use(VueRouter);
 
@@ -15,7 +21,13 @@ const routes = [
     redirect: '/welcome',
     // home路径下的子路由
     children: [
-      {path: '/welcome',component: Welcome}
+      {path: '/welcome',component: Welcome},
+      {path: '/users',component: Users},
+      {path: '/goods',component: Goods},
+      {path: '/roles',component: Roles},
+      {path: '/orders',component: Orders},
+      {path: '/perm',component: Perm},
+      {path: '/stats',component: Stats},
     ]},
   {path: '/',redirect: '/login' },  //也可以直接进行重定向而不是导航到到组件
 
