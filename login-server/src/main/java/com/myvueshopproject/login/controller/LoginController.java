@@ -28,22 +28,22 @@ public class LoginController {
     public MenuResult menu() {
 
         ArrayList<MenuResult.Data> children1 = new ArrayList<>();
-        children1.add(new MenuResult.Data(104,"用户列表",null,new ArrayList<>()));
+        children1.add(new MenuResult.Data(104,"用户列表","users",new ArrayList<>()));
 
 
 
         ArrayList<MenuResult.Data> children2 = new ArrayList<>();
-        children2.add(new MenuResult.Data(204,"角色管理",null,new ArrayList<>()));
-        children2.add(new MenuResult.Data(205,"权限管理管理",null,new ArrayList<>()));
+        children2.add(new MenuResult.Data(204,"角色管理","roles",new ArrayList<>()));
+        children2.add(new MenuResult.Data(205,"权限管理管理","perm",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children3 = new ArrayList<>();
-        children3.add(new MenuResult.Data(304,"商品列表",null,new ArrayList<>()));
+        children3.add(new MenuResult.Data(304,"商品列表","goods",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children4 = new ArrayList<>();
-        children4.add(new MenuResult.Data(404,"订单列表",null,new ArrayList<>()));
+        children4.add(new MenuResult.Data(404,"订单列表","orders",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children5 = new ArrayList<>();
-        children5.add(new MenuResult.Data(504,"商品列表",null,new ArrayList<>()));
+        children5.add(new MenuResult.Data(504,"统计列表","stats",new ArrayList<>()));
 
 
         ArrayList<MenuResult.Data> parent = new ArrayList<>();

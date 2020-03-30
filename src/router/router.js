@@ -2,13 +2,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import Welcome from '../components/Welcome.vue'
 
 Vue.use(VueRouter);
 
 const routes = [
 
   {path: '/login',component: Login},
-  {path: '/home',component: Home},
+  {path: '/home',component: Home,
+
+    //重定向,当访问了home后直接重定向到/home/welcome
+    redirect: '/welcome',
+    // home路径下的子路由
+    children: [
+      {path: '/welcome',component: Welcome}
+    ]},
   {path: '/',redirect: '/login' },  //也可以直接进行重定向而不是导航到到组件
 
 ];

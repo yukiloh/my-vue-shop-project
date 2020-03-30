@@ -24,14 +24,27 @@
     <el-container>
 
       <!--侧边栏-->
-      <el-aside>
+      <el-aside :width="asideWidth">
+
+        <!-- 折叠功能 -->
+        <div class="toggle-button" @click="toggleCollapse">{{toggleIcon}}</div>
 
         <!-- 侧边栏菜单区;添加了新的元素同样需要重新引入 -->
+        <!-- active-text-color: 选中时的高亮颜色-->
+        <!-- unique-opened:每次只打开1个菜单; 加上:让值为布尔值,不加则是string,如果只填写unique-opened也表示打开该选项 -->
+        <!-- collapse:是否开启折叠,具体的布尔值绑定到data中方便toggleCollapse进行切换-->
+        <!-- collapse-transition: 是否开启动画效果,比较丑就关了 -->
+        <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/menu Menu Attribute中的collapse属性-->
+        <!-- router: 开启跳转,会跳转至index所对应的地址上-->
         <el-menu
-            width="200px"
             background-color="#373744"
             text-color="#fff"
-            active-text-color="#ffd04b">
+            active-text-color="#409BFF"
+            :unique-opened="true"
+            :collapse="isCollapse"
+            :collapse-transition="false"
+            :router="true"
+        >
 
           <!-- 一级菜单-->
           <!-- 菜单也是通过后台获取的数据; 根据获取的数据来遍历-->
@@ -42,16 +55,19 @@
             <!-- 一级菜单模板区(显示区)-->
             <template slot="title">
               <!-- 图标 -->
-              <i class="el-icon-location"></i>
+              <!-- 一级图标通过读取预设的iconObj中的key:value来决定-->
+              <i :class="iconObj[item.id]"></i>
               <!-- 文本 -->
               <span>{{item.authName}}</span>
             </template>
 
             <!-- 二级菜单,添加后使得一级菜单可以弹出二级菜单 -->
-            <el-menu-item :index="subItem.id+''" v-for="subItem in item.children" :key="subItem.id">
+            <!-- 二级菜单的index需要router跳转,所以设为path的值-->
+            <el-menu-item :index="'/' + item.path" v-for="subItem in item.children" :key="subItem.id">
               <!-- 二级菜单的内容与一级菜单的模板去一样;  如果需要再添加一级则再template标签后再添加el-menu-item即可-->
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <!-- 二级图标都是menu -->
+                <i class="el-icon-menu"></i>
                 <span>{{subItem.authName}}</span>
               </template>
             </el-menu-item>
@@ -63,7 +79,9 @@
 
       <!--右侧主体-->
       <el-container>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
 
     </el-container>
@@ -85,6 +103,18 @@
       return {
         //左侧菜单的数据
         menuList: [],
+        //每个icon对应的图标
+        iconObj: {
+          '101': 'el-icon-user',
+          '201': 'el-icon-s-check',
+          '301': 'el-icon-goods',
+          '401': 'el-icon-s-order',
+          '501': 'el-icon-data-analysis',
+        },
+        //是否折叠的控制器
+        isCollapse: false,
+        toggleIcon: '<<<',
+        asideWidth: "200px"
       }
     },
 
@@ -107,9 +137,20 @@
         //如果数据返回成功,则将获取到的res赋值到data中
         this.menuList = res.data;
         // console.log(this.menuList);    //检查用
+      },
 
+      //折叠菜单栏
+      toggleCollapse() {
+        this.isCollapse = !this.isCollapse;
 
-      }
+        if (this.isCollapse === true) {
+          this.asideWidth = "64px";
+          this.toggleIcon = ">>";
+        }else {
+          this.asideWidth = "200px";
+          this.toggleIcon = "<<<";
+        }
+      },
     }
 
   }
@@ -147,6 +188,11 @@
 
   .el-aside {
     background: #373744;
+
+    .el-menu {
+      border-right: none;
+    }
+
   }
 
   .el-main {
@@ -160,5 +206,19 @@
     height: 100%;
   }
 
+
+  //让一级选项的文字和icon间隔增大;  eleUI最后标签都会转化为class所以可以用.el-xxx来选择
+  .el-submenu span{
+    margin-left: 5px;
+  }
+
+  //为折叠栏添加样式
+  .toggle-button {
+    font-size: 20px;
+    line-height: 30px;
+    color: #b6b6b6;
+    text-align: center;
+    letter-spacing: -0.2em;  //字间距
+  }
 
 </style>
