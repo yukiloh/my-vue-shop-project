@@ -1,4 +1,4 @@
-package com.myvueshopproject.login.model;
+package com.myvueshopproject.login.result;
 
 import java.io.Serializable;
 

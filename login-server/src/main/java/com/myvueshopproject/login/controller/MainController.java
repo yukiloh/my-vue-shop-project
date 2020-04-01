@@ -1,9 +1,10 @@
 package com.myvueshopproject.login.controller;
 
-import com.myvueshopproject.login.model.LoginResult;
-import com.myvueshopproject.login.model.LoginParam;
-import com.myvueshopproject.login.model.MenuResult;
-import com.myvueshopproject.login.model.UsersResult;
+import com.myvueshopproject.login.model.*;
+import com.myvueshopproject.login.result.AddUsersResult;
+import com.myvueshopproject.login.result.LoginResult;
+import com.myvueshopproject.login.result.MenuResult;
+import com.myvueshopproject.login.result.UsersResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -81,5 +82,29 @@ public class MainController {
             }
         }
         return new UsersResult( new UsersResult.Data(list.size(), 1, list));
+    }
+
+
+    //添加用户
+    @PostMapping("/addUser")
+    public AddUsersResult addUser(@RequestBody AddUserParam addUserParam) {
+
+        AddUsersResult addUsersResult = new AddUsersResult(
+                new AddUsersResult.Data(
+                        11,
+                        addUserParam.getUsername(),
+                        addUserParam.getMobile(),
+                        3,
+                        "",
+                        addUserParam.getMobile(),
+                        new Date(),
+                        null,
+                        false,
+                        false
+                )
+        );
+
+
+        return addUsersResult;
     }
 }
