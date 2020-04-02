@@ -123,8 +123,9 @@
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             </el-tooltip>
 
+            <!-- 此项没做! -->
             <el-tooltip effect="light" content="设置用户" placement="top" :enterable="false">
-              <el-button type="info" icon="el-icon-setting" size="mini"></el-button>
+              <el-button type="info" icon="el-icon-setting" size="mini" disabled></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
