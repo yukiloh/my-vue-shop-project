@@ -85,7 +85,7 @@ public class MainController {
     }
 
 
-    //添加用户
+    //添加用户,没数据库
     @PostMapping("/addUser")
     public AddUsersResult addUser(@RequestBody AddUserParam addUserParam) {
 
@@ -103,8 +103,6 @@ public class MainController {
                         false
                 )
         );
-
-
         return addUsersResult;
     }
 }

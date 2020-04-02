@@ -112,8 +112,9 @@
             <!-- toolTip 鼠标提示文字,也需要导入! -->
             <!-- :enterable="false" 鼠标移入后提示框自动消失-->
             <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tooltip -->
-            <el-tooltip effect="light" content="修改" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+            <el-tooltip effect="light" content="修改" placement="top" :enterable="false" >
+              <!-- scope.row可以获取到改行所对应的数据! -->
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)"></el-button>
             </el-tooltip>
 
             <el-tooltip effect="light" content="删除" placement="top" :enterable="false">
@@ -126,6 +127,34 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!--修改用户的对话框-->
+      <el-dialog
+          title="修改用户"
+          :visible.sync="editDialogVisible"
+          width="30%">
+
+        <!-- close:该表单关闭时调用的函数-->
+        <el-form :model="editUserForm" :rules="editUserFormRules"
+                 ref="editUserFormRef" label-width="70px" @close="clearEditDialog">
+          <el-form-item label="用户名">
+            <el-input  v-model="editUserForm.username" disabled></el-input>
+          </el-form-item>
+
+          <el-form-item label="邮箱" prop="email">
+            <el-input type="email" v-model="editUserForm.email"></el-input>
+          </el-form-item>
+
+          <el-form-item label="手机" prop="mobile">
+            <el-input type="number" v-model="editUserForm.mobile"></el-input>
+          </el-form-item>
+        </el-form>
+
+        <span slot="footer" class="dialog-footer" >
+              <el-button @click="clearEditDialog">清 空</el-button>
+              <el-button type="primary" @click="editUserSubmit">确 定</el-button>
+            </span>
+      </el-dialog>
 
       <!-- 分页区 -->
       <div class="block">
@@ -191,6 +220,7 @@
         userList: [],
         total: 0,
         addDialogVisible: false,  //控制对话框的显示/隐藏
+        editDialogVisible: false,
         //添加用户表单的数据
         addUserForm: {
           username: '',
@@ -200,6 +230,23 @@
         },
         //添加用户表单的规则
         addUserFormRules: {
+          //对于用户名和密码可以使用默认的校验规则
+          username: [{required: true,message:'用户名?',trigger:'blur'},{min: 5,max:12,message:'用户名长度 5 ~ 12',trigger:'blur'}],
+          password: [{required: true,message:'密码?',trigger:'blur'},{min: 6,max:12,message:'密码长度 6 ~ 12',trigger:'blur'}],
+          //对于邮箱则需要使用自定义的校验规则,validator: xxx
+          //参考 https://element.eleme.cn/2.0/#/zh-CN/component/form 自定义校验规则
+          email: [{required: true,message:'邮箱??',trigger:'blur'},{validator: checkEmail,trigger:'blur'}],
+          mobile: [{required: true,message:'手机??',trigger:'blur'},{validator: checkMobile,trigger:'blur'}],
+        },
+        //修改用户时的数据
+        editUserForm: {
+          username: '',
+          password: '',
+          email: '',
+          mobile: '',
+        },
+        //修改用户时的规则
+        editUserFormRules: {
           //对于用户名和密码可以使用默认的校验规则
           username: [{required: true,message:'用户名?',trigger:'blur'},{min: 5,max:12,message:'用户名长度 5 ~ 12',trigger:'blur'}],
           password: [{required: true,message:'密码?',trigger:'blur'},{min: 6,max:12,message:'密码长度 6 ~ 12',trigger:'blur'}],
@@ -254,7 +301,16 @@
         this.$refs.addUserFormRef.resetFields();
       },
 
-      //添加用户后进行预验证
+      //清空修改用户的对话框
+      clearEditDialog() {
+        this.$refs.editUserFormRef.resetFields();
+        this.editUserForm.password = '';
+        this.editUserForm.email = '';
+        this.editUserForm.mobile = '';
+
+      },
+
+      //添加用户,并进行预验证
       addUser() {
         //通过validate来对表单进行验证
         this.$refs.addUserFormRef.validate(async valid =>{
@@ -266,7 +322,6 @@
           if (result.meta.status !== 201) {
             this.$message.error('添加失败！');
             return ;
-
           }else {
             this.$message.success('添加成功！');
             //清空并关闭窗口,重新刷新用户列表
@@ -277,7 +332,31 @@
         });
       },
 
+      //修改用户信息
+      showEditUserDialog(row) {
+        this.editDialogVisible = true;
+        // console.log(row.id); //通过传入的id可以对后台进行查询请求,这里就模拟下
+        this.editUserForm.username = row.userName;
+        this.editUserForm.email = row.email;
+        this.editUserForm.mobile = row.mobile;
+      },
+
+      //
+      editUserSubmit() {
+        //通常情况需要进行预验证的效果
+        this.$refs.editUserFormRef.validate(valid =>{
+          if (valid) {
+            this.$message.success('修改成功');
+            this.editDialogVisible = false;
+            this.getUserList(); //成功后需要刷新用户列表!
+          }else this.$message.error('修改失败!');
+        });
+
+
+      },
+
     },
+    //页面创建时
     created() {
       this.getUserList();
     }
