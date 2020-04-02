@@ -1,10 +1,7 @@
 package com.myvueshopproject.login.controller;
 
 import com.myvueshopproject.login.model.*;
-import com.myvueshopproject.login.result.AddUsersResult;
-import com.myvueshopproject.login.result.LoginResult;
-import com.myvueshopproject.login.result.MenuResult;
-import com.myvueshopproject.login.result.UsersResult;
+import com.myvueshopproject.login.result.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class MainController {
 
         ArrayList<MenuResult.Data> children2 = new ArrayList<>();
         children2.add(new MenuResult.Data(204,"角色管理","roles",new ArrayList<>()));
-        children2.add(new MenuResult.Data(205,"权限管理管理","perm",new ArrayList<>()));
+        children2.add(new MenuResult.Data(205,"权限列表","perm",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children3 = new ArrayList<>();
         children3.add(new MenuResult.Data(304,"商品列表","goods",new ArrayList<>()));
@@ -104,5 +101,54 @@ public class MainController {
                 )
         );
         return addUsersResult;
+    }
+
+
+    //权限管理>权限列表
+    @GetMapping("/perm")
+    public PermResult permission() {
+
+        PermResult.Perm userManager = new PermResult.Perm(101, "用户管理", "0", 0, null);
+        PermResult.Perm permManager = new PermResult.Perm(201, "权限管理", "0", 0, null);
+        PermResult.Perm goodsManager = new PermResult.Perm(301, "商品管理", "0", 0, null);
+        PermResult.Perm orderManager = new PermResult.Perm(401, "订单管理", "0", 0, null);
+        PermResult.Perm dataStats = new PermResult.Perm(501, "数据统计", "0", 0, null);
+
+        PermResult.Perm userList = new PermResult.Perm(102, "用户列表", "1", 0, "user");
+        PermResult.Perm permList = new PermResult.Perm(202, "角色管理", "1", 0, "perm");
+        PermResult.Perm goodsList = new PermResult.Perm(302, "权限列表", "1", 0, "goods");
+        PermResult.Perm orderList = new PermResult.Perm(303, "商品列表", "1", 0, "order");
+        PermResult.Perm dataList = new PermResult.Perm(402, "订单列表", "1", 0, "data");
+        PermResult.Perm statsList = new PermResult.Perm(502, "统计列表", "1", 0, "stats");
+
+        PermResult.Perm addUser = new PermResult.Perm(102, "添加用户", "2", 0, "user");
+        PermResult.Perm editUser = new PermResult.Perm(102, "修改用户", "2", 0, "user");
+        PermResult.Perm delUser = new PermResult.Perm(102, "删除商品", "2", 0, "user");
+        PermResult.Perm addGoods = new PermResult.Perm(102, "添加商品", "2", 0, "goods");
+        PermResult.Perm editGoods = new PermResult.Perm(102, "修改商品", "2", 0, "goods");
+        PermResult.Perm delGoods = new PermResult.Perm(102, "删除商品", "2", 0, "goods");
+
+        ArrayList<PermResult.Perm> perms = new ArrayList<>();
+        perms.add(userManager);
+        perms.add(permManager);
+        perms.add(goodsManager);
+        perms.add(orderManager);
+        perms.add(dataStats);
+
+        perms.add(userList);
+        perms.add(permList);
+        perms.add(goodsList);
+        perms.add(orderList);
+        perms.add(dataList);
+        perms.add(statsList);
+
+        perms.add(addUser);
+        perms.add(editUser);
+        perms.add(delUser);
+        perms.add(addGoods);
+        perms.add(editGoods);
+        perms.add(delGoods);
+
+        return new PermResult(new PermResult.Data(perms));
     }
 }
