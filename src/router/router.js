@@ -5,10 +5,10 @@ import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/user/Users.vue'
 import Goods from '../components/goods/Goods.vue'
-import Perm from '../components/roles/Perm.vue'
+import Perm from '../components/perms/Perm.vue'
 import Orders from '../components/orders/Orders.vue'
 import Stats from '../components/stats/Stats.vue'
-import Roles from "../components/roles/Roles";
+import Roles from "../components/perms/Roles";
 
 Vue.use(VueRouter);
 
