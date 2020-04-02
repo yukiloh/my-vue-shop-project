@@ -117,8 +117,10 @@
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)"></el-button>
             </el-tooltip>
 
+            <!-- 执行删除从操作时需要弹出警告框,此时需要用MessageBox-->
             <el-tooltip effect="light" content="删除" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+              <!-- @click:通过id来删除user -->
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             </el-tooltip>
 
             <el-tooltip effect="light" content="设置用户" placement="top" :enterable="false">
@@ -351,11 +353,37 @@
             this.getUserList(); //成功后需要刷新用户列表!
           }else this.$message.error('修改失败!');
         });
+      },
+
+
+      removeUserById(id) {
+        //使用eleUI的MessageBox来提示弹框(alert的效果),需要额外挂载在vue上而不是use
+        //参数1:消息文字  参数2:标题
+        this.$confirm('你确定?', '删除用户', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'   //消息文字左边的icon
+        }).then((confirm) => {
+          // console.log(confirm); //测试用,如果点击了确定会打印confirm
+          this.$message({
+            type: 'success',
+            message: '已成功删除用户id:'+id
+          });
+          //可以在此处向后台发起删除用户的请求,然后getUserList来刷新视图,此处省略
+        }).catch((cancel) => {
+          // console.log(cancel);  //测试用,如果点击了取消会打印cancel
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+
+        //this.$confirm返回的是promise,因此本函数可以用async await来修饰
+        //可以使用then,也可以让this.$confirm返回一个const来判断点击了确定还是取消
+      }
 
 
       },
-
-    },
     //页面创建时
     created() {
       this.getUserList();
