@@ -37,7 +37,7 @@ public class MainController {
 
         ArrayList<MenuResult.Data> children2 = new ArrayList<>();
         children2.add(new MenuResult.Data(204,"角色管理","roles",new ArrayList<>()));
-        children2.add(new MenuResult.Data(205,"权限管理管理","perm",new ArrayList<>()));
+        children2.add(new MenuResult.Data(205,"权限列表","perm",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children3 = new ArrayList<>();
         children3.add(new MenuResult.Data(304,"商品列表","goods",new ArrayList<>()));
