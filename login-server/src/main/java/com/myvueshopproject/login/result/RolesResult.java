@@ -5,24 +5,24 @@ import java.util.ArrayList;
 
 public class RolesResult implements Serializable {
 
-    private ArrayList<FirstPerm> data;
+    private ArrayList<Role> data;
     private Meta meta;
 
-    public RolesResult(ArrayList<FirstPerm> data) {
 
+
+    public RolesResult(ArrayList<Role> data) {
         this.data = data;
 
-        String msg = "获取角色列表成功";
+        String msg = "获取用户列表成功";
         int status = 200;
-
         this.meta = new Meta(msg,status);
     }
 
-    public ArrayList<FirstPerm> getData() {
+    public ArrayList<Role> getData() {
         return data;
     }
 
-    public void setData(ArrayList<FirstPerm> data) {
+    public void setData(ArrayList<Role> data) {
         this.data = data;
     }
 
@@ -61,21 +61,43 @@ public class RolesResult implements Serializable {
     }
 
 
-
-
-    public static class FirstPerm {
+    public static class Role {
         private Integer id;
         private String authName;
         private String path;
         private String desc;
-        private ArrayList<SecondPerm> children;
+        private ArrayList<FirstPerm> children;
 
-        public FirstPerm(Integer id, String authName, String path, String desc,ArrayList<SecondPerm> children) {
+        public Role(Integer id, String authName, String path, String desc, ArrayList<FirstPerm> children) {
             this.id = id;
             this.authName = authName;
             this.path = path;
             this.desc = desc;
             this.children = children;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getAuthName() {
+            return authName;
+        }
+
+        public void setAuthName(String authName) {
+            this.authName = authName;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
         }
 
         public String getDesc() {
@@ -85,6 +107,29 @@ public class RolesResult implements Serializable {
         public void setDesc(String desc) {
             this.desc = desc;
         }
+
+        public ArrayList<FirstPerm> getChildren() {
+            return children;
+        }
+
+        public void setChildren(ArrayList<FirstPerm> children) {
+            this.children = children;
+        }
+    }
+
+    public static class FirstPerm {
+        private Integer id;
+        private String authName;
+        private String path;
+        private ArrayList<SecondPerm> children;
+
+        public FirstPerm(Integer id, String authName, String path, ArrayList<SecondPerm> children) {
+            this.id = id;
+            this.authName = authName;
+            this.path = path;
+            this.children = children;
+        }
+
 
         public Integer getId() {
             return id;

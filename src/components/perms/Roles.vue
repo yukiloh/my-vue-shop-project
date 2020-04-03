@@ -14,9 +14,47 @@
     <el-card class="box-card">
       <!-- 表格区 -->
       <!-- @expand-change:  点击展开数据后的回调函数"-->
-      <el-table :data="rolesList" border :stripe="true" @expand-change="testttt">
+      <el-table :data="rolesList" border :stripe="true" @expand-change="onExpand">
         <!-- expand: 点击后可以展开本条数据-->
-        <el-table-column type="expand" ></el-table-column>
+        <el-table-column type="expand" >
+          <template slot-scope="scope">
+
+            <!-- 使用栅格系统-->
+            <!--c1-->
+            <el-row v-for="c1 in scope.row.children">
+
+              <!--第一列-->
+              <el-col :span="8" >
+                {{c1.authName}}
+              </el-col>
+
+              <!--第二列-->
+              <el-col :span="6" >
+                <el-row v-for="c2 in c1.children">
+                  <el-col :span="5" >
+                    {{c2.authName}}
+                  </el-col>
+                </el-row>
+
+              </el-col >
+
+              <!--第三列-->
+              <el-col :span="10">
+                <el-row v-for="c2 in c1.children">
+                  <el-col >
+                    <el-row v-for="c3 in c2.children">
+                      <el-col >
+                        {{c3.authName}}
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </el-col>
+
+            </el-row>
+
+          </template>
+        </el-table-column>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="角色" prop="authName"></el-table-column>
         <el-table-column label="描述" prop="desc"></el-table-column>
@@ -24,7 +62,6 @@
         <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tag-->
         <el-table-column label="操作" prop="level">
           <template slot-scope="scope">
-
             <el-tooltip effect="light" content="修改" placement="top" :enterable="false" >
               <!-- scope.row可以获取到改行所对应的数据! -->
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)"></el-button>
@@ -36,10 +73,6 @@
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             </el-tooltip>
 
-            <!-- 此项没做! -->
-            <el-tooltip effect="light" content="分配权限" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
-            </el-tooltip>
           </template>
 
         </el-table-column>
@@ -71,8 +104,8 @@
         this.rolesList = res.data;
       },
 
-      testttt() {
-        console.log(2);
+      onExpand() {
+        console.log('?');
       }
 
 
