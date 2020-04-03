@@ -159,17 +159,17 @@ public class MainController {
 
         RolesResult.ThirdPerm thirdPerm1 = new RolesResult.ThirdPerm(111, "添加用户", "user");
         RolesResult.ThirdPerm thirdPerm2 = new RolesResult.ThirdPerm(121, "修改用户", "user");
-        RolesResult.ThirdPerm thirdPerm3 = new RolesResult.ThirdPerm(311, "删除商品", "user");
-        RolesResult.ThirdPerm thirdPerm4 = new RolesResult.ThirdPerm(312, "添加商品", "goods");
-        RolesResult.ThirdPerm thirdPerm5 = new RolesResult.ThirdPerm(313, "修改商品", "goods");
-        RolesResult.ThirdPerm thirdPerm6 = new RolesResult.ThirdPerm(314, "删除商品", "goods");
+        RolesResult.ThirdPerm thirdPerm3 = new RolesResult.ThirdPerm(131, "删除用户", "user");
+        RolesResult.ThirdPerm thirdPerm4 = new RolesResult.ThirdPerm(311, "添加商品", "goods");
+        RolesResult.ThirdPerm thirdPerm5 = new RolesResult.ThirdPerm(312, "修改商品", "goods");
+        RolesResult.ThirdPerm thirdPerm6 = new RolesResult.ThirdPerm(313, "删除商品", "goods");
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms1 = new ArrayList<>();
         thirdPerms1.add(thirdPerm1);
         thirdPerms1.add(thirdPerm2);
+        thirdPerms1.add(thirdPerm3);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms2 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm3);
         thirdPerms2.add(thirdPerm4);
         thirdPerms2.add(thirdPerm5);
         thirdPerms2.add(thirdPerm6);
