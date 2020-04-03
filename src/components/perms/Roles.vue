@@ -20,37 +20,30 @@
           <template slot-scope="scope">
 
             <!-- 使用栅格系统-->
-            <!--c1-->
-            <el-row v-for="c1 in scope.row.children">
+            <!--c1:class1,i1:index1-->
+            <!-- class:动态的为该标签进行绑定!,让class称为一个数组,用三元判断是否是第一个元素,是则添加border top-->
+            <el-row v-for="(c1,i1) in scope.row.children" :class="['border-bottom',i1 === 0 ? 'border-top' :'']">
 
               <!--第一列-->
               <el-col :span="8" >
-                {{c1.authName}}
+                <el-tag type="info" >{{c1.authName}}</el-tag>
+                <i class="el-icon-caret-right"></i>
               </el-col>
 
-              <!--第二列-->
-              <el-col :span="6" >
-                <el-row v-for="c2 in c1.children">
-                  <el-col :span="5" >
-                    {{c2.authName}}
+              <!--第二+三列-->
+              <el-col :span="16" >
+                <!-- 或者: i2 === 0 ? 插入top:不插top   代码更精简-->
+                <el-row v-for="(c2,i2) in c1.children" :class="[i2 !== c1.children.length-1 ? 'border-bottom' :'']">
+                  <el-col :span="8" >
+                    <el-tag >{{c2.authName}}</el-tag>
+                    <i class="el-icon-caret-right"></i>
+                  </el-col>
+                  <!-- 二级标签不需要每行一个直接铺满tag就好了 -->
+                  <el-col :span="8" >
+                    <el-tag type="warning" v-for="c3 in c2.children">{{c3.authName}}</el-tag>
                   </el-col>
                 </el-row>
-
               </el-col >
-
-              <!--第三列-->
-              <el-col :span="10">
-                <el-row v-for="c2 in c1.children">
-                  <el-col >
-                    <el-row v-for="c3 in c2.children">
-                      <el-col >
-                        {{c3.authName}}
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                </el-row>
-              </el-col>
-
             </el-row>
 
           </template>
@@ -117,5 +110,16 @@
 </script>
 
 <style scoped lang="less">
+  .el-tag {
+    margin: 7px;
+  }
+
+  .border-bottom {
+    border-bottom: #dddddd 1px solid;
+  }
+
+  .border-top {
+    border-top: #dddddd 1px solid;
+  }
 
 </style>

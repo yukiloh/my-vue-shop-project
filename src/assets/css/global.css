@@ -8,9 +8,14 @@ html,body,#app {
   padding: 0;
   min-width: 1366px   ;/* 设置最小宽度 */
 
+
+  /*-webkit-filter:grayscale(); !* 变灰 *!*/
+
+
 }
 
 /*面包屑*/
 .el-breadcrumb {
   margin-bottom: 15px;
 }
+
