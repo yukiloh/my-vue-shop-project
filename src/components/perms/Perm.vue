@@ -20,7 +20,7 @@
         <el-table-column label="权限名称" prop="authName"></el-table-column>
         <el-table-column label="路径" prop="path"></el-table-column>
         <!-- 需要使用美化标签Tag-->
-        <!-- 参考: -->
+        <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tag-->
         <el-table-column label="访问级别" prop="level">
           <template slot-scope="scope" l>
             <el-tag v-if="scope.row.level === '0'" type="info">一级</el-tag>
@@ -49,7 +49,7 @@
     methods: {
       async getPermList() {
         const {data: res} = await this.axios.get('perm');
-        console.log(res);
+        // console.log(res);
 
         if (res.meta.status !== 200) return this.$message.error('数据获取失败');
         //将获取到的数据添加至data; 良好习惯,事先在data中设定好的参数结构再赋值,而不是等数据来了后再设置进data

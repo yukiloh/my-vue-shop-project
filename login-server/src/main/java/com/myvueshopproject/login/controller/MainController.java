@@ -121,12 +121,12 @@ public class MainController {
         PermResult.Perm dataList = new PermResult.Perm(402, "订单列表", "1", 0, "data");
         PermResult.Perm statsList = new PermResult.Perm(502, "统计列表", "1", 0, "stats");
 
-        PermResult.Perm addUser = new PermResult.Perm(102, "添加用户", "2", 0, "user");
-        PermResult.Perm editUser = new PermResult.Perm(102, "修改用户", "2", 0, "user");
-        PermResult.Perm delUser = new PermResult.Perm(102, "删除商品", "2", 0, "user");
-        PermResult.Perm addGoods = new PermResult.Perm(102, "添加商品", "2", 0, "goods");
-        PermResult.Perm editGoods = new PermResult.Perm(102, "修改商品", "2", 0, "goods");
-        PermResult.Perm delGoods = new PermResult.Perm(102, "删除商品", "2", 0, "goods");
+        PermResult.Perm addUser = new PermResult.Perm(111, "添加用户", "2", 0, "user");
+        PermResult.Perm editUser = new PermResult.Perm(121, "修改用户", "2", 0, "user");
+        PermResult.Perm delUser = new PermResult.Perm(311, "删除商品", "2", 0, "user");
+        PermResult.Perm addGoods = new PermResult.Perm(312, "添加商品", "2", 0, "goods");
+        PermResult.Perm editGoods = new PermResult.Perm(313, "修改商品", "2", 0, "goods");
+        PermResult.Perm delGoods = new PermResult.Perm(314, "删除商品", "2", 0, "goods");
 
         ArrayList<PermResult.Perm> perms = new ArrayList<>();
         perms.add(userManager);
@@ -150,5 +150,45 @@ public class MainController {
         perms.add(delGoods);
 
         return new PermResult(new PermResult.Data(perms));
+    }
+
+
+    //权限管理>角色列表
+    @GetMapping("/roles")
+    public RolesResult roles() {
+
+        RolesResult.ThirdPerm thirdPerm1 = new RolesResult.ThirdPerm(111, "添加用户", "user");
+        RolesResult.ThirdPerm thirdPerm2 = new RolesResult.ThirdPerm(121, "修改用户", "user");
+        RolesResult.ThirdPerm thirdPerm3 = new RolesResult.ThirdPerm(311, "删除商品", "user");
+        RolesResult.ThirdPerm thirdPerm4 = new RolesResult.ThirdPerm(312, "添加商品", "goods");
+        RolesResult.ThirdPerm thirdPerm5 = new RolesResult.ThirdPerm(313, "修改商品", "goods");
+        RolesResult.ThirdPerm thirdPerm6 = new RolesResult.ThirdPerm(314, "删除商品", "goods");
+
+        ArrayList<RolesResult.ThirdPerm> thirdPerms1 = new ArrayList<>();
+        thirdPerms1.add(thirdPerm1);
+        thirdPerms1.add(thirdPerm2);
+
+        ArrayList<RolesResult.ThirdPerm> thirdPerms2 = new ArrayList<>();
+        thirdPerms2.add(thirdPerm3);
+        thirdPerms2.add(thirdPerm4);
+        thirdPerms2.add(thirdPerm5);
+        thirdPerms2.add(thirdPerm6);
+
+        RolesResult.SecondPerm secondPerm1 = new RolesResult.SecondPerm(102,"用户列表","user",thirdPerms1);
+        RolesResult.SecondPerm secondPerm2 = new RolesResult.SecondPerm(303,"用户列表","goods",thirdPerms2);
+
+        ArrayList<RolesResult.SecondPerm> secondPerms1 = new ArrayList<>();
+        secondPerms1.add(secondPerm1);
+        secondPerms1.add(secondPerm2);
+
+        RolesResult.FirstPerm firstPerm1 = new RolesResult.FirstPerm(1, "管理员1号", null,"第一个管理员", secondPerms1);
+        RolesResult.FirstPerm firstPerm2 = new RolesResult.FirstPerm(1, "管理员2号", null,"第二个管理员", secondPerms1);
+        ArrayList<RolesResult.FirstPerm> firstPerms = new ArrayList<>();
+        firstPerms.add(firstPerm1);
+        firstPerms.add(firstPerm2);
+
+        RolesResult rolesResult = new RolesResult(firstPerms);
+
+        return rolesResult;
     }
 }
