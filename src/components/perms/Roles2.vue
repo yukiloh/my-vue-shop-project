@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <!-- 因为是第二个页面所以可以复制黏贴一下 -->
+    <!-- 复制自roles 因为不满意他权限显示的方式 -->
 
     <!-- 面包屑导航区 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -12,8 +12,8 @@
 
     <!-- 卡片视图区 -->
     <el-card class="box-card">
+      <el-button type="warning" @click="changeView" class="changeViewButton">切换视图</el-button>
 
-      <el-button type="warning" @click="changeView" class="changeViewButton" >切换视图</el-button>
 
       <!-- 表格区 -->
       <!-- @expand-change:  点击展开数据后的回调函数"-->
@@ -29,7 +29,7 @@
 
               <!--第一列-->
               <el-col :span="8" >
-                <el-tag type="info" closable>{{c1.authName}}</el-tag>
+                <el-tag type="info" >{{c1.authName}}</el-tag>
                 <i class="el-icon-caret-right"></i>
               </el-col>
 
@@ -38,12 +38,12 @@
                 <!-- 或者: i2 === 0 ? 插入top:不插top   代码更精简-->
                 <el-row v-for="(c2,i2) in c1.children" :class="[i2 !== c1.children.length-1 ? 'border-bottom' :'']">
                   <el-col :span="8" >
-                    <el-tag closable>{{c2.authName}}</el-tag>
+                    <el-tag >{{c2.authName}}</el-tag>
                     <i class="el-icon-caret-right"></i>
                   </el-col>
                   <!-- 二级标签不需要每行一个直接铺满tag就好了 -->
                   <el-col :span="8" >
-                    <el-tag type="warning" v-for="c3 in c2.children" closable>{{c3.authName}}</el-tag>
+                    <el-tag type="warning" v-for="c3 in c2.children">{{c3.authName}}</el-tag>
                   </el-col>
                 </el-row>
               </el-col >
@@ -104,9 +104,8 @@
         console.log('?');
       },
 
-
       changeView() {
-        this.$router.push('/roles2');
+        this.$router.push('/roles');
       }
 
 
@@ -118,11 +117,9 @@
 </script>
 
 <style scoped lang="less">
-
   .changeViewButton {
     margin-bottom: 20px;
   }
-
   .el-tag {
     margin: 7px;
   }

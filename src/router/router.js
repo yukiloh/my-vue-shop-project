@@ -9,6 +9,7 @@ import Perm from '../components/perms/Perm.vue'
 import Orders from '../components/orders/Orders.vue'
 import Stats from '../components/stats/Stats.vue'
 import Roles from "../components/perms/Roles";
+import Roles2 from "../components/perms/Roles2";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,7 @@ const routes = [
       {path: '/orders',component: Orders},
       {path: '/perm',component: Perm},
       {path: '/stats',component: Stats},
+      {path: '/roles2',component: Roles2},
     ]},
   {path: '/',redirect: '/login' },  //也可以直接进行重定向而不是导航到到组件
 

@@ -178,11 +178,12 @@ public class MainController {
         RolesResult.SecondPerm secondPerm2 = new RolesResult.SecondPerm(303,"商品列表","goods",thirdPerms2);
 
         ArrayList<RolesResult.SecondPerm> secondPerms1 = new ArrayList<>();
+        ArrayList<RolesResult.SecondPerm> secondPerms2 = new ArrayList<>();
         secondPerms1.add(secondPerm1);
-        secondPerms1.add(secondPerm2);
+        secondPerms2.add(secondPerm2);
 
         RolesResult.FirstPerm firstPerm1 = new RolesResult.FirstPerm(101, "用户管理", "user",secondPerms1);
-        RolesResult.FirstPerm firstPerm2 = new RolesResult.FirstPerm(301, "商品管理", "goods", secondPerms1);
+        RolesResult.FirstPerm firstPerm2 = new RolesResult.FirstPerm(301, "商品管理", "goods", secondPerms2);
         ArrayList<RolesResult.FirstPerm> firstPerms = new ArrayList<>();
         firstPerms.add(firstPerm1);
         firstPerms.add(firstPerm2);
