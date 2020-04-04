@@ -28,8 +28,9 @@
             <el-row v-for="(c1,i1) in scope.row.children" :class="['border-bottom',i1 === 0 ? 'border-top' :'']">
 
               <!--第一列-->
+              <!-- span: 栅格所占用的尺寸-->
               <el-col :span="8" >
-                <el-tag type="info" closable>{{c1.authName}}</el-tag>
+                <el-tag type="info" closable @close="removeTagById(c1.id)">{{c1.authName}}</el-tag>
                 <i class="el-icon-caret-right"></i>
               </el-col>
 
@@ -37,13 +38,14 @@
               <el-col :span="16" >
                 <!-- 或者: i2 === 0 ? 插入top:不插top   代码更精简-->
                 <el-row v-for="(c2,i2) in c1.children" :class="[i2 !== c1.children.length-1 ? 'border-bottom' :'']">
+                  <!-- 这里因为新起了一个row,所以2个col的全尺寸还是24,并非16-->
                   <el-col :span="8" >
-                    <el-tag closable>{{c2.authName}}</el-tag>
+                    <el-tag closable @close="removeTagById(c2.id)">{{c2.authName}}</el-tag>
                     <i class="el-icon-caret-right"></i>
                   </el-col>
                   <!-- 二级标签不需要每行一个直接铺满tag就好了 -->
-                  <el-col :span="8" >
-                    <el-tag type="warning" v-for="c3 in c2.children" closable>{{c3.authName}}</el-tag>
+                  <el-col :span="16" >
+                    <el-tag type="warning" v-for="c3 in c2.children" closable @close="removeTagById(c3.id)">{{c3.authName}}</el-tag>
                   </el-col>
                 </el-row>
               </el-col >
@@ -58,16 +60,40 @@
         <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tag-->
         <el-table-column label="操作" prop="level">
           <template slot-scope="scope">
-            <el-tooltip effect="light" content="修改" placement="top" :enterable="false" >
-              <!-- scope.row可以获取到改行所对应的数据! -->
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)"></el-button>
-            </el-tooltip>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)">编辑角色</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)">删除角色</el-button>
 
-            <!-- 执行删除从操作时需要弹出警告框,此时需要用MessageBox-->
-            <el-tooltip effect="light" content="删除" placement="top" :enterable="false">
-              <!-- @click:通过id来删除user -->
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
-            </el-tooltip>
+            <!-- 通过dialog来显示树状结构 -->
+            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showPermsDialog">分配权限</el-button>
+
+
+            <!--修改用户的对话框-->
+            <el-dialog
+                title="分配权限"
+                :visible.sync="permsDialog"
+                width="30%">
+
+<!--              &lt;!&ndash; close:该表单关闭时调用的函数&ndash;&gt;-->
+<!--              <el-form :model="editUserForm" :rules="editUserFormRules"-->
+<!--                       ref="editUserFormRef" label-width="70px" @close="clearEditDialog">-->
+<!--                <el-form-item label="用户名">-->
+<!--                  <el-input  v-model="editUserForm.username" disabled></el-input>-->
+<!--                </el-form-item>-->
+
+<!--                <el-form-item label="邮箱" prop="email">-->
+<!--                  <el-input type="email" v-model="editUserForm.email"></el-input>-->
+<!--                </el-form-item>-->
+
+<!--                <el-form-item label="手机" prop="mobile">-->
+<!--                  <el-input type="number" v-model="editUserForm.mobile"></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-form>-->
+
+              <span slot="footer" class="dialog-footer" >
+              <el-button @click="clearEditDialog">清 空</el-button>
+              <el-button type="primary" @click="editUserSubmit">确 定</el-button>
+            </span>
+            </el-dialog>
 
           </template>
 
@@ -87,6 +113,7 @@
     data() {
       return {
         rolesList: [],
+        permsDialog: false,
 
       }
     },
@@ -100,10 +127,40 @@
         this.rolesList = res.data;
       },
 
+
+      removeTagById(id) {
+        //和删除用户那里一样的,复制
+        this.$confirm('你确定?', '删除权限', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'   //消息文字左边的icon
+        }).then((confirm) => {
+          // console.log(confirm); //测试用,如果点击了确定会打印confirm
+          this.$message({
+            type: 'success',
+            message: '已成功删除权限id:'+id
+            //模拟向后台发起请求,根据id删除对应权限
+            //发起后服务器会发送完整的权限数据,将此数据赋值至data,而不是再次getRoleList,因为会导致页面刷新
+          });
+        }).catch((cancel) => {
+          // console.log(cancel);  //测试用,如果点击了取消会打印cancel
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      },
+
+      showPermsDialog(){
+        this.permsDialog = true;
+
+
+      },
+
+
       onExpand() {
         console.log('?');
       },
-
 
       changeView() {
         this.$router.push('/roles2');
