@@ -30,3 +30,7 @@ git merge 需要合并的副分支
 
 #### icon参考
 icon.scss 文件
+
+
+#### 如需修改webpack的设置
+https://cli.vuejs.org/zh/config/#vue-config-js
