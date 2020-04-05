@@ -272,31 +272,31 @@ public class MainController {
 
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms3 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm7);
+        thirdPerms3.add(thirdPerm7);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms4 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm8);
-        thirdPerms2.add(thirdPerm9);
-        thirdPerms2.add(thirdPerm10);
-        thirdPerms2.add(thirdPerm101);
-        thirdPerms2.add(thirdPerm102);
-        thirdPerms2.add(thirdPerm103);
+        thirdPerms4.add(thirdPerm8);
+        thirdPerms4.add(thirdPerm9);
+        thirdPerms4.add(thirdPerm10);
+        thirdPerms4.add(thirdPerm101);
+        thirdPerms4.add(thirdPerm102);
+        thirdPerms4.add(thirdPerm103);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms5 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm11);
-        thirdPerms2.add(thirdPerm12);
-        thirdPerms2.add(thirdPerm13);
+        thirdPerms5.add(thirdPerm11);
+        thirdPerms5.add(thirdPerm12);
+        thirdPerms5.add(thirdPerm13);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms55 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm14);
+        thirdPerms55.add(thirdPerm14);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms6 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm15);
-        thirdPerms2.add(thirdPerm16);
-        thirdPerms2.add(thirdPerm17);
+        thirdPerms6.add(thirdPerm15);
+        thirdPerms6.add(thirdPerm16);
+        thirdPerms6.add(thirdPerm17);
 
         ArrayList<RolesResult.ThirdPerm> thirdPerms7 = new ArrayList<>();
-        thirdPerms2.add(thirdPerm18);
+        thirdPerms7.add(thirdPerm18);
 
         //二级
         RolesResult.SecondPerm secondPerm1 = new RolesResult.SecondPerm(102,"用户列表","user",thirdPerms1);
