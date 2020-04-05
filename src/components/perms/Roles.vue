@@ -60,8 +60,8 @@
         <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tag-->
         <el-table-column label="操作" prop="level">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditUserDialog(scope.row)">编辑角色</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)">删除角色</el-button>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="">编辑角色</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="">删除角色</el-button>
 
             <!-- 通过dialog来显示树状结构 -->
             <el-button type="warning" icon="el-icon-setting" size="mini" @click="showPermsDialog">分配权限</el-button>
@@ -73,25 +73,12 @@
                 :visible.sync="permsDialog"
                 width="30%">
 
-<!--              &lt;!&ndash; close:该表单关闭时调用的函数&ndash;&gt;-->
-<!--              <el-form :model="editUserForm" :rules="editUserFormRules"-->
-<!--                       ref="editUserFormRef" label-width="70px" @close="clearEditDialog">-->
-<!--                <el-form-item label="用户名">-->
-<!--                  <el-input  v-model="editUserForm.username" disabled></el-input>-->
-<!--                </el-form-item>-->
-
-<!--                <el-form-item label="邮箱" prop="email">-->
-<!--                  <el-input type="email" v-model="editUserForm.email"></el-input>-->
-<!--                </el-form-item>-->
-
-<!--                <el-form-item label="手机" prop="mobile">-->
-<!--                  <el-input type="number" v-model="editUserForm.mobile"></el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-form>-->
+              <!-- data:数据源;  props:指定树形的属性-->
+              <el-tree :data="allPermList" :props="permProps" @node-click=""></el-tree>
 
               <span slot="footer" class="dialog-footer" >
-              <el-button @click="clearEditDialog">清 空</el-button>
-              <el-button type="primary" @click="editUserSubmit">确 定</el-button>
+              <el-button @click="">清 空</el-button>
+              <el-button type="primary" @click="">确 定</el-button>
             </span>
             </el-dialog>
 
@@ -113,7 +100,12 @@
     data() {
       return {
         rolesList: [],
+        allPermList: [],
         permsDialog: false,
+        permProps: {
+          label: 'authName',
+          children: 'children'
+        },
 
       }
     },
@@ -151,10 +143,16 @@
         });
       },
 
-      showPermsDialog(){
+      async getPermList(){
+        const {data: res} = await this.axios.get('allPerm');
+        // console.log(res);  //测试用
+        if (res.meta.status !== 200) return this.$message.error('数据获取失败');
+        this.allPermList = res.data[0].children;
+        console.log(this.allPermList);
+      },
+
+      async showPermsDialog(){
         this.permsDialog = true;
-
-
       },
 
 
@@ -170,6 +168,7 @@
     },
     created() {
       this.getRoleList();
+      this.getPermList();
     }
   }
 </script>

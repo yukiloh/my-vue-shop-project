@@ -318,23 +318,23 @@ public class MainController {
         secondPerms2.add(secondPerm3);
 
         ArrayList<RolesResult.SecondPerm> secondPerms3 = new ArrayList<>();
-        secondPerms2.add(secondPerm4);
-        secondPerms2.add(secondPerm5);
-        secondPerms2.add(secondPerm6);
+        secondPerms3.add(secondPerm4);
+        secondPerms3.add(secondPerm5);
+        secondPerms3.add(secondPerm6);
 
         ArrayList<RolesResult.SecondPerm> secondPerms4 = new ArrayList<>();
-        secondPerms2.add(secondPerm7);
+        secondPerms4.add(secondPerm7);
 
         ArrayList<RolesResult.SecondPerm> secondPerms5 = new ArrayList<>();
-        secondPerms2.add(secondPerm8);
+        secondPerms5.add(secondPerm8);
 
 
         //一级
         RolesResult.FirstPerm firstPerm1 = new RolesResult.FirstPerm(101, "用户管理", "user",secondPerms1);
-        RolesResult.FirstPerm firstPerm2 = new RolesResult.FirstPerm(201, "用户管理", "user",secondPerms2);
+        RolesResult.FirstPerm firstPerm2 = new RolesResult.FirstPerm(201, "权限管理", "user",secondPerms2);
         RolesResult.FirstPerm firstPerm3 = new RolesResult.FirstPerm(301, "商品管理", "goods", secondPerms3);
-        RolesResult.FirstPerm firstPerm4 = new RolesResult.FirstPerm(401, "商品管理", "goods", secondPerms4);
-        RolesResult.FirstPerm firstPerm5 = new RolesResult.FirstPerm(501, "商品管理", "goods", secondPerms5);
+        RolesResult.FirstPerm firstPerm4 = new RolesResult.FirstPerm(401, "订单管理", "goods", secondPerms4);
+        RolesResult.FirstPerm firstPerm5 = new RolesResult.FirstPerm(501, "数据统计", "goods", secondPerms5);
 
         ArrayList<RolesResult.FirstPerm> firstPerms = new ArrayList<>();
         firstPerms.add(firstPerm1);
