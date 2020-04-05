@@ -237,7 +237,7 @@ public class MainController {
         RolesResult.ThirdPerm thirdPerm5 = new RolesResult.ThirdPerm(221, "修改角色", "roles");
         RolesResult.ThirdPerm thirdPerm6 = new RolesResult.ThirdPerm(231, "删除角色", "roles");
 
-        RolesResult.ThirdPerm thirdPerm7 = new RolesResult.ThirdPerm(231, "查看权限", "perm");
+        RolesResult.ThirdPerm thirdPerm7 = new RolesResult.ThirdPerm(232, "查看权限", "perm");
 
         RolesResult.ThirdPerm thirdPerm8 = new RolesResult.ThirdPerm(311, "添加商品", "goods");
         RolesResult.ThirdPerm thirdPerm9 = new RolesResult.ThirdPerm(312, "修改商品", "goods");

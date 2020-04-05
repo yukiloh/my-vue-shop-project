@@ -73,8 +73,18 @@
                 :visible.sync="permsDialog"
                 width="30%">
 
-              <!-- data:数据源;  props:指定树形的属性-->
-              <el-tree :data="allPermList" :props="permProps" @node-click=""></el-tree>
+              <!-- 树形结构-->
+              <!--data:数据源  props:指定树形节点的属性-->
+              <!--show-checkbox:可勾选节点-->
+              <!--node-key:指定选中节点的值-->
+              <!--default-expand-all:指定打开所有节点-->
+              <el-tree
+                  :data="allPermList"
+                  :props="permProps"
+                  show-checkbox
+                  node-key="id"
+                  default-expand-all
+                  @node-click=""></el-tree>
 
               <span slot="footer" class="dialog-footer" >
               <el-button @click="">清 空</el-button>
@@ -103,8 +113,8 @@
         allPermList: [],
         permsDialog: false,
         permProps: {
-          label: 'authName',
-          children: 'children'
+          label: 'authName',    //指定节点名称
+          children: 'children'  //指定子节点的集合
         },
 
       }
@@ -154,7 +164,6 @@
       async showPermsDialog(){
         this.permsDialog = true;
       },
-
 
       onExpand() {
         console.log('?');
