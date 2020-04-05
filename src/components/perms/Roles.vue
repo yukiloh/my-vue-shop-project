@@ -60,42 +60,49 @@
         <!-- 参考: https://element.eleme.cn/2.0/#/zh-CN/component/tag-->
         <el-table-column label="操作" prop="level">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="">编辑角色</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="">删除角色</el-button>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="" disabled>编辑角色</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="" disabled>删除角色</el-button>
 
             <!-- 通过dialog来显示树状结构 -->
-            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showPermsDialog">分配权限</el-button>
-
-
-            <!--修改用户的对话框-->
-            <el-dialog
-                title="分配权限"
-                :visible.sync="permsDialog"
-                width="30%">
-
-              <!-- 树形结构-->
-              <!--data:数据源  props:指定树形节点的属性-->
-              <!--show-checkbox:可勾选节点-->
-              <!--node-key:指定选中节点的值-->
-              <!--default-expand-all:指定打开所有节点-->
-              <el-tree
-                  :data="allPermList"
-                  :props="permProps"
-                  show-checkbox
-                  node-key="id"
-                  default-expand-all
-                  @node-click=""></el-tree>
-
-              <span slot="footer" class="dialog-footer" >
-              <el-button @click="">清 空</el-button>
-              <el-button type="primary" @click="">确 定</el-button>
-            </span>
-            </el-dialog>
-
+            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showPermsDialog(scope.row)">分配权限</el-button>
           </template>
 
         </el-table-column>
       </el-table>
+
+      <!--修改用户的对话框 别写在template中会出现重影-->
+      <!-- :close:dialog关闭时需要充值defKeys数组 -->
+      <el-dialog
+          title="分配权限"
+          :visible.sync="permsDialog"
+          width="30%"
+          :close="resetDefCheckedKey"
+      >
+
+        <!-- 树形结构-->
+        <!--data:数据源  props:指定树形节点的属性-->
+        <!--show-checkbox:可勾选节点-->
+        <!--node-key:指定选中节点的值-->
+        <!--default-expand-all:指定打开所有节点-->
+        <!--default-checked-keys:默认勾选的数组-->
+        <el-tree
+            :data="allPermList"
+            :props="permProps"
+            show-checkbox
+            node-key="id"
+            default-expand-all
+            :default-checked-keys="defCheckedKey"
+            ref="treeRef"
+
+        ></el-tree>
+
+        <span slot="footer" class="dialog-footer" >
+          <el-button @click="permsDialog=false">取 消</el-button>
+
+          <!-- 获取选中和半选中的rid数组,提交给后台 -->
+          <el-button type="primary" @click="submitPerm">确 定</el-button>
+        </span>
+      </el-dialog>
 
     </el-card>
 
@@ -116,6 +123,7 @@
           label: 'authName',    //指定节点名称
           children: 'children'  //指定子节点的集合
         },
+        defCheckedKey:[], //默认选中的节点的数组
 
       }
     },
@@ -158,15 +166,48 @@
         // console.log(res);  //测试用
         if (res.meta.status !== 200) return this.$message.error('数据获取失败');
         this.allPermList = res.data[0].children;
-        console.log(this.allPermList);
       },
 
-      async showPermsDialog(){
+
+      showPermsDialog(role){
+        console.log(role);
+        //当点击显示对话框时,获取当前角色的权限列表的id,赋值至defCheckedKey,默认勾选该数组
+        this.getNodeList(role, this.defCheckedKey);
+
+        //需要在打开dialog之前将属性节点设置所要勾选的节点!!
         this.permsDialog = true;
+
+      },
+
+      resetDefCheckedKey(){
+        this.defCheckedKey = [];
+      },
+
+      //获取所有三级子节点的id
+      getNodeList(node,arr) {
+        //如果没有子节点,则表示这是三级节点,将该节点的id加到arr中
+        if (!node.children) return arr.push(node.id);
+
+        //如果存在子节点,则继续递归
+        node.children.forEach(item => this.getNodeList(item, arr))
+      },
+
+      submitPerm(){
+        const keys = [
+          ...this.$refs.treeRef.getCheckedKeys(),
+          ...this.$refs.treeRef.getHalfCheckedKeys()
+        ];
+
+        this.$message.success('更新了:'+keys);
+        //省略向服务器提交数据步骤
+
+        this.getRoleList();       //更新数据
+        this.permsDialog = false; //关闭dialog
+
       },
 
       onExpand() {
-        console.log('?');
+        // console.log('?');
       },
 
       changeView() {

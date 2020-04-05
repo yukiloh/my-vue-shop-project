@@ -14,7 +14,6 @@
     <!-- 卡片视图区 -->
     <el-card class="box-card">
 
-
       <!-- 搜索与添加区 -->
       <!-- eleUI的栅格系统 一共24格-->
       <!-- gutter:2个栅格之间的间隔,单位可能是px,如果扩张会减少左由2个栅格的宽度; 注意,也需要用:gutter,数值不是string-->
@@ -85,11 +84,11 @@
         <!-- 通过设置type = index 来添加索引(默认效果) -->
         <!-- 通过label来指定表头名,prop指定字段的数据-->
         <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column label="姓名"prop="userName"></el-table-column>
-        <el-table-column label="手机"prop="mobile"></el-table-column>
-        <el-table-column label="邮箱"prop="email"></el-table-column>
+        <el-table-column label="姓名" prop="userName"></el-table-column>
+        <el-table-column label="手机" prop="mobile"></el-table-column>
+        <el-table-column label="邮箱" prop="email"></el-table-column>
 <!--        <el-table-column label="创建时间"prop="createTime"></el-table-column>-->
-        <el-table-column label="权限"prop="roleName"></el-table-column>
+        <el-table-column label="权限" prop="roleName"></el-table-column>
 
         <!-- 无法直接显示布尔值,需要借助作用域插槽slot-scope来获取--> <!-- 据说新版是v-slot-->
         <!-- @change:eleUI自带的事件,当开关状态发生变化时可以执行回调函数; 需要额外传入当前开关的状态! -->
@@ -124,8 +123,8 @@
             </el-tooltip>
 
             <!-- 此项没做! -->
-            <el-tooltip effect="light" content="设置用户" placement="top" :enterable="false">
-              <el-button type="info" icon="el-icon-setting" size="mini" disabled></el-button>
+            <el-tooltip effect="light" content="分配角色" placement="top" :enterable="false">
+              <el-button type="info" icon="el-icon-setting" size="mini" @click="setUserRole(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -157,6 +156,38 @@
               <el-button @click="clearEditDialog">清 空</el-button>
               <el-button type="primary" @click="editUserSubmit">确 定</el-button>
             </span>
+      </el-dialog>
+
+      <!--设置用户角色对话框-->
+      <el-dialog
+          title="修改用户"
+          :visible.sync="setUserDialogVisible"
+          width="30%"
+      >
+        <div class="user-info">
+          <div><span>当前用户</span>：<span class="user-info-span">{{setUserRoleForm.username}}</span></div>
+          <div><span>当前角色</span>：<span class="user-info-span">{{setUserRoleForm.role}}</span></div>
+        </div>
+
+        <!-- 选择器,v-model绑定被选择的key,v-for遍历选择列表数据 -->
+        <div>
+          <el-select v-model="selectedRoleId" placeholder="请选择?">
+            <el-option
+                v-for="item in roleList"
+                :key="item.value"
+                :label="item.role"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+
+
+        <!--对话框的底部区域,包含了2个按钮-->
+        <span slot="footer" class="dialog-footer" >
+          <!-- 点击取消后会控制addDialogVisible等于false -->
+          <el-button @click="closeRoleDialog()">取 消</el-button>
+          <el-button type="primary" @click="submitSetRole">确 定</el-button>
+        </span>
       </el-dialog>
 
       <!-- 分页区 -->
@@ -224,6 +255,7 @@
         total: 0,
         addDialogVisible: false,  //控制对话框的显示/隐藏
         editDialogVisible: false,
+        setUserDialogVisible: false,
         //添加用户表单的数据
         addUserForm: {
           username: '',
@@ -248,6 +280,22 @@
           email: '',
           mobile: '',
         },
+        //设置用户角色时
+        setUserRoleForm: {
+          username: '',
+          role: '',
+        },
+
+        //角色权限可选列表(因为省略后端所以直接赋值)
+        roleList: [
+          {role: '狗逼', value: 1},
+          {role: '猪逼', value: 2},
+          {role: '猫逼', value: 3},
+          {role: '逼逼', value: 4},
+        ],
+        selectedRoleId: '',
+
+
         //修改用户时的规则
         editUserFormRules: {
           //对于用户名和密码可以使用默认的校验规则
@@ -267,7 +315,7 @@
         const {data:res} = await this.axios.get('users',{params: this.queryInfo});
         //发出去的请求: http://murasakichigo.xyz:9090/my-vue-shop-project/users?query=&pagenum=1&pagesize=2 可见axios会自动拼接参数
         // console.log(res);   //测试用
-        
+
         if (res.meta.status !== 200) return this.$message.error('数据获取失败');
         //将获取到的数据添加至data; 良好习惯,事先在data中设定好的参数结构再赋值,而不是等数据来了后再设置进data
         this.userList = res.data.users;
@@ -381,13 +429,36 @@
 
         //this.$confirm返回的是promise,因此本函数可以用async await来修饰
         //可以使用then,也可以让this.$confirm返回一个const来判断点击了确定还是取消
+      },
+
+
+      setUserRole(user) {
+        this.setUserDialogVisible = true;
+        this.setUserRoleForm.username = user.userName;
+        this.setUserRoleForm.role = user.roleName;
+      },
+
+      closeRoleDialog() {
+        this.setUserDialogVisible =false;
+      },
+
+      submitSetRole() {
+        if (this.selectedRoleId === '') {
+          this.$message({type: 'error',message: '选了?'});
+          return
+        }
+        this.setUserDialogVisible =false;
+        this.$message({type: 'success',message: '已设定:'+this.selectedRoleId});
+        this.selectedRoleId = '';
       }
 
-
-      },
+    },
     //页面创建时
     created() {
       this.getUserList();
+
+      for (let roleListKey in this.roleList) {
+      }
     }
   }
 </script>
@@ -403,6 +474,18 @@
   .el-pagination {
     margin-top: 15px;
   }
+
+  .user-info {
+    margin-bottom: 20px;
+    > div {
+      margin-top: 20px;
+      > .user-info-span {
+        margin-left: 20px;
+      }
+    }
+
+  }
+
 
 
 </style>
