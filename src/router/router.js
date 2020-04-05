@@ -5,6 +5,8 @@ import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/user/Users.vue'
 import Goods from '../components/goods/Goods.vue'
+import Categories from '../components/goods/categories.vue'
+import CatePrams from '../components/goods/catePrams.vue'
 import Perm from '../components/perms/Perm.vue'
 import Orders from '../components/orders/Orders.vue'
 import Stats from '../components/stats/Stats.vue'
@@ -30,6 +32,8 @@ const routes = [
       {path: '/perm',component: Perm},
       {path: '/stats',component: Stats},
       {path: '/roles2',component: Roles2},
+      {path: '/catePrams',component: CatePrams},
+      {path: '/categories',component: Categories},
     ]},
   {path: '/',redirect: '/login' },  //也可以直接进行重定向而不是导航到到组件
 

@@ -29,22 +29,24 @@ public class MainController {
     public MenuResult menu() {
 
         ArrayList<MenuResult.Data> children1 = new ArrayList<>();
-        children1.add(new MenuResult.Data(104,"用户列表","users",new ArrayList<>()));
+        children1.add(new MenuResult.Data(102,"用户列表","users",new ArrayList<>()));
 
 
 
         ArrayList<MenuResult.Data> children2 = new ArrayList<>();
-        children2.add(new MenuResult.Data(204,"角色管理","roles",new ArrayList<>()));
-        children2.add(new MenuResult.Data(205,"权限列表","perm",new ArrayList<>()));
+        children2.add(new MenuResult.Data(202,"角色管理","roles",new ArrayList<>()));
+        children2.add(new MenuResult.Data(203,"权限列表","perm",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children3 = new ArrayList<>();
-        children3.add(new MenuResult.Data(304,"商品列表","goods",new ArrayList<>()));
+        children3.add(new MenuResult.Data(302,"商品列表","goods",new ArrayList<>()));
+        children3.add(new MenuResult.Data(303,"分类参数","cateParams",new ArrayList<>()));
+        children3.add(new MenuResult.Data(304,"商品分类","categories",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children4 = new ArrayList<>();
-        children4.add(new MenuResult.Data(404,"订单列表","orders",new ArrayList<>()));
+        children4.add(new MenuResult.Data(402,"订单列表","orders",new ArrayList<>()));
 
         ArrayList<MenuResult.Data> children5 = new ArrayList<>();
-        children5.add(new MenuResult.Data(504,"统计列表","stats",new ArrayList<>()));
+        children5.add(new MenuResult.Data(502,"统计列表","stats",new ArrayList<>()));
 
 
         ArrayList<MenuResult.Data> parent = new ArrayList<>();
