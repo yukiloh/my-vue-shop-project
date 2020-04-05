@@ -117,8 +117,10 @@ public class MainController {
 
         PermResult.Perm userList = new PermResult.Perm(102, "用户列表", "1", 0, "user");
         PermResult.Perm permList = new PermResult.Perm(202, "角色管理", "1", 0, "perm");
-        PermResult.Perm goodsList = new PermResult.Perm(302, "权限列表", "1", 0, "goods");
-        PermResult.Perm orderList = new PermResult.Perm(303, "商品列表", "1", 0, "order");
+        PermResult.Perm goodsList = new PermResult.Perm(203, "权限列表", "1", 0, "goods");
+        PermResult.Perm orderList1 = new PermResult.Perm(302, "商品列表", "1", 0, "order");
+        PermResult.Perm orderList2 = new PermResult.Perm(303, "分类参数", "1", 0, "order");
+        PermResult.Perm orderList3 = new PermResult.Perm(304, "商品分类", "1", 0, "order");
         PermResult.Perm dataList = new PermResult.Perm(402, "订单列表", "1", 0, "data");
         PermResult.Perm statsList = new PermResult.Perm(502, "统计列表", "1", 0, "stats");
 
@@ -162,7 +164,9 @@ public class MainController {
         perms.add(userList);
         perms.add(permList);
         perms.add(goodsList);
-        perms.add(orderList);
+        perms.add(orderList1);
+        perms.add(orderList2);
+        perms.add(orderList3);
         perms.add(dataList);
         perms.add(statsList);
 
@@ -300,13 +304,13 @@ public class MainController {
         RolesResult.SecondPerm secondPerm2 = new RolesResult.SecondPerm(202,"角色列表","roles",thirdPerms2);
         RolesResult.SecondPerm secondPerm3 = new RolesResult.SecondPerm(203,"权限列表","perm",thirdPerms3);
 
-        RolesResult.SecondPerm secondPerm4 = new RolesResult.SecondPerm(303,"商品列表","goods",thirdPerms4);
-        RolesResult.SecondPerm secondPerm5 = new RolesResult.SecondPerm(304,"分类参数","categories",thirdPerms5);
-        RolesResult.SecondPerm secondPerm6 = new RolesResult.SecondPerm(305,"分类参数","categories",thirdPerms55);
+        RolesResult.SecondPerm secondPerm4 = new RolesResult.SecondPerm(302,"商品列表","goods",thirdPerms4);
+        RolesResult.SecondPerm secondPerm5 = new RolesResult.SecondPerm(303,"分类参数","categories",thirdPerms5);
+        RolesResult.SecondPerm secondPerm6 = new RolesResult.SecondPerm(304,"商品分类","categories",thirdPerms55);
 
-        RolesResult.SecondPerm secondPerm7 = new RolesResult.SecondPerm(402,"分类参数","orders",thirdPerms6);
+        RolesResult.SecondPerm secondPerm7 = new RolesResult.SecondPerm(402,"订单列表","orders",thirdPerms6);
 
-        RolesResult.SecondPerm secondPerm8 = new RolesResult.SecondPerm(402,"分类参数","orders",thirdPerms7);
+        RolesResult.SecondPerm secondPerm8 = new RolesResult.SecondPerm(502,"数据报表","orders",thirdPerms7);
 
 
 
