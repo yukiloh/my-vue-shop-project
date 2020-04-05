@@ -30,7 +30,6 @@
         <div class="toggle-button" @click="toggleCollapse">{{toggleIcon}}</div>
 
         <!-- 侧边栏菜单区;添加了新的元素同样需要重新引入 -->
-
         <!-- unique-opened:每次只打开1个菜单; 加上:让值为布尔值,不加则是string,如果只填写unique-opened也表示打开该选项 -->
         <!-- collapse:是否开启折叠,具体的布尔值绑定到data中方便toggleCollapse进行切换-->
         <!-- collapse-transition: 是否开启动画效果,比较丑就关了 -->

@@ -6,6 +6,11 @@ html,body,#app {
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 1366px   ;/* 设置最小宽度 */
+
+
+  /*-webkit-filter:grayscale(); !* 变灰 *!*/
+
 
 }
 
@@ -13,3 +18,4 @@ html,body,#app {
 .el-breadcrumb {
   margin-bottom: 15px;
 }
+
