@@ -19,3 +19,7 @@ html,body,#app {
   margin-bottom: 15px;
 }
 
+/* eleUI的bug,级联选择器选择框高度不够或者过高*/
+.el-cascader-menu {
+  height: 300px;
+}

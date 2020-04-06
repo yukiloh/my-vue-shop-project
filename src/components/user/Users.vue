@@ -169,7 +169,7 @@
           <div><span>当前角色</span>：<span class="user-info-span">{{setUserRoleForm.role}}</span></div>
         </div>
 
-        <!-- 选择器,v-model绑定被选择的key,v-for遍历选择列表数据 -->
+        <!-- 下拉选择器,v-model绑定被选择的key,v-for遍历选择列表数据 -->
         <div>
           <el-select v-model="selectedRoleId" placeholder="请选择?">
             <el-option
