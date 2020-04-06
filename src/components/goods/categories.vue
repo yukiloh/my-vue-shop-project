@@ -16,9 +16,10 @@
 
       <!--添加分类的对话框-->
       <el-dialog
+          @close="closeCateDialog"
           title="添加商品分类"
           :visible.sync="addCateDialogVisible"
-          width="40%">
+          width="35%">
 
         <!--表单-->
         <el-form :model="addCateForm"  label-width="100px">
@@ -27,13 +28,15 @@
             <el-input  v-model="addCateForm.username"></el-input>
           </el-form-item>
 
-          <!-- 下拉选择器 -->
+
           <el-form-item label="父级分类">
-              <el-cascader
-                :v-model="selectedCateId"
-                :options="selectedCateList"
-                :props="{ expandTrigger: 'click' }"
-              ></el-cascader>
+            <!-- 级联选择器 -->
+            <!-- v-model: 指定选中的值,数组,对应数据源种的value,指定后可以产生默认选择的效果-->
+            <!-- :options: 数据源-->
+            <el-cascader
+              v-model="selectedCateId"
+              :options="selectedCateList"
+            ></el-cascader>
           </el-form-item>
 
 
@@ -52,7 +55,6 @@
             也可以通过tree-props: {hasChildren: 'hasChildren', children: 'children' }来指定-->
       <el-table
           :data="categoriesList"
-          style="width: 100%;margin-bottom: 20px;"
           row-key="cate_id"
           border
           >
@@ -97,8 +99,7 @@
 
       </el-table>
 
-      <!-- 分页区 -->
-      <!-- 没有做效果-->
+      <!-- 分页区 --><!--没做-->
       <div class="block">
         <el-pagination
             @size-change=""
@@ -135,16 +136,18 @@
         addCateForm: {
           username: '',
         },
-        selectedCateId: '',
+        selectedCateId: ['zhinan1','shejiyuanze1','yizhi1'],
 
-        selectedCateList: [{
-          value: 'zhinan',
+        //懒得写后台了
+        selectedCateList: [
+          {
+          value: 'zhinan1',
           label: '指南',
           children: [{
-            value: 'shejiyuanze',
+            value: 'shejiyuanze1',
             label: '设计原则',
             children: [{
-              value: 'yizhi',
+              value: 'yizhi1',
               label: '一致'
             }, {
               value: 'fankui',
@@ -169,13 +172,13 @@
           }]
         },
           {
-            value: 'zhinan',
+            value: 'zhinan1',
             label: '指南',
             children: [{
-              value: 'shejiyuanze',
+              value: 'shejiyuanze1',
               label: '设计原则',
               children: [{
-                value: 'yizhi',
+                value: 'yizhi1',
                 label: '一致'
               }, {
                 value: 'fankui',
@@ -198,7 +201,8 @@
                 label: '顶部导航'
               }]
             }]
-          }],
+          }
+        ]
       }
     },
 
@@ -213,11 +217,17 @@
       },
       closeCateDialog() {
         this.addCateDialogVisible = false;
+        this.addCateForm.username = '';
+        this.selectedCateId = [];
       },
       submitCateDialog() {
-        this.$message.success('添加商品分类成功');
+        //假装提交数据
+        //↓获取了级联标签+需要提交的分类名
+        let result = this.selectedCateId+this.addCateForm.username;
+        this.$message.success('添加商品分类成功: '+ result);
         this.addCateDialogVisible = false;
-
+        this.addCateForm.username = '';
+        this.selectedCateId = [];
       },
 
     },

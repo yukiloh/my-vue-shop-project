@@ -1,12 +1,22 @@
 <template>
   <div>
     分类参数
+
   </div>
 </template>
 
 <script>
   export default {
-    name: "cateParams"
+    name: "cateParams",
+    data() {
+      return {
+
+      }
+    },
+    methods: {
+
+
+    }
   }
 </script>
 
