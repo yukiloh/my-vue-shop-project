@@ -4,9 +4,11 @@ import com.myvueshopproject.login.model.*;
 import com.myvueshopproject.login.result.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -360,5 +362,92 @@ public class MainController {
 
         return rolesResult;
 
+    }
+
+
+
+    //商品分类数据列表
+    @GetMapping("/categories")
+    public CategoriesResult categories(
+            @RequestParam(name="type", required=false) String type,
+            @RequestParam(name="currentPage", required=false) Integer currentPage,
+            @RequestParam(name="pageSize", required=false) Integer pageSize
+    ) {
+
+        CategoriesResult.Categories2 categories21 = new CategoriesResult.Categories2(1001, "索尼电视", 101, 2, false);
+        CategoriesResult.Categories2 categories22 = new CategoriesResult.Categories2(1002, "松下电视", 101, 2, false);
+        CategoriesResult.Categories2 categories23 = new CategoriesResult.Categories2(1003, "海信电视", 101, 2, false);
+
+        CategoriesResult.Categories2 categories24 = new CategoriesResult.Categories2(1011, "海尔冰箱", 102, 2, false);
+        CategoriesResult.Categories2 categories25 = new CategoriesResult.Categories2(1012, "格力冰箱", 102, 2, false);
+
+        CategoriesResult.Categories2 categories26 = new CategoriesResult.Categories2(1021, "戴森吸尘器", 103, 2, false);
+
+        CategoriesResult.Categories2 categories27 = new CategoriesResult.Categories2(1111, "安卓1", 111, 2, false);
+        CategoriesResult.Categories2 categories28 = new CategoriesResult.Categories2(1112, "安卓2", 111, 2, false);
+
+
+        CategoriesResult.Categories2 categories29 = new CategoriesResult.Categories2(1121, "苹果1", 112, 2, false);
+        CategoriesResult.Categories2 categories210 = new CategoriesResult.Categories2(1122, "苹果1", 112, 2, false);
+
+        CategoriesResult.Categories2 categories211 = new CategoriesResult.Categories2(1221, "好吃的", 121, 2, false);
+
+        CategoriesResult.Categories2 categories212 = new CategoriesResult.Categories2(1222, "难吃的\n", 122, 2, false);
+
+
+        ArrayList<CategoriesResult.Categories2> categories2List1 = new ArrayList<>();
+        Collections.addAll(categories2List1, categories21, categories22,categories23);
+
+        ArrayList<CategoriesResult.Categories2> categories2List2 = new ArrayList<>();
+        Collections.addAll(categories2List2, categories24,categories25);
+
+        ArrayList<CategoriesResult.Categories2> categories2List3 = new ArrayList<>();
+        Collections.addAll(categories2List3, categories26);
+
+        ArrayList<CategoriesResult.Categories2> categories2List4 = new ArrayList<>();
+        Collections.addAll(categories2List4, categories27,categories28);
+
+        ArrayList<CategoriesResult.Categories2> categories2List5 = new ArrayList<>();
+        Collections.addAll(categories2List5, categories29,categories210);
+
+        ArrayList<CategoriesResult.Categories2> categories2List6 = new ArrayList<>();
+        Collections.addAll(categories2List6, categories211);
+
+        ArrayList<CategoriesResult.Categories2> categories2List7 = new ArrayList<>();
+        Collections.addAll(categories2List7, categories212);
+
+        CategoriesResult.Categories1 categories1 = new CategoriesResult.Categories1(101, "电视", 1, 1, false, categories2List1);
+        CategoriesResult.Categories1 categories2 = new CategoriesResult.Categories1(102, "冰箱", 1, 1, false, categories2List2);
+        CategoriesResult.Categories1 categories3 = new CategoriesResult.Categories1(103, "吸尘器", 1, 1, false, categories2List3);
+
+        CategoriesResult.Categories1 categories4 = new CategoriesResult.Categories1(111, "安卓手机", 1, 1, false, categories2List4);
+        CategoriesResult.Categories1 categories5 = new CategoriesResult.Categories1(112, "苹果手机", 1, 1, false, categories2List5);
+
+        CategoriesResult.Categories1 categories6 = new CategoriesResult.Categories1(121, "甜的零食", 1, 1, false, categories2List6);
+        CategoriesResult.Categories1 categories7 = new CategoriesResult.Categories1(122, "咸的零食", 1, 1, false, categories2List7);
+
+
+        ArrayList<CategoriesResult.Categories1> categories1List1 = new ArrayList<>();
+        Collections.addAll(categories1List1, categories1, categories2,categories3);
+
+        ArrayList<CategoriesResult.Categories1> categories1List2 = new ArrayList<>();
+        Collections.addAll(categories1List2, categories4, categories5);
+
+        ArrayList<CategoriesResult.Categories1> categories1List3 = new ArrayList<>();
+        Collections.addAll(categories1List3, categories6, categories7);
+
+        CategoriesResult.Categories0 categories01 = new CategoriesResult.Categories0(1, "家电", 0, 0, false, categories1List1);
+        CategoriesResult.Categories0 categories02 = new CategoriesResult.Categories0(2, "手机", 0, 0, false, categories1List2);
+        CategoriesResult.Categories0 categories03 = new CategoriesResult.Categories0(3, "零食", 0, 0, false, categories1List3);
+
+        ArrayList<CategoriesResult.Categories0> categories0s = new ArrayList<>();
+        Collections.addAll(categories0s, categories01, categories02,categories03);
+
+
+        CategoriesResult.Data data = new CategoriesResult.Data(categories0s);
+
+        CategoriesResult categoriesResult = new CategoriesResult(data);
+
+        return categoriesResult;
     }
 }
