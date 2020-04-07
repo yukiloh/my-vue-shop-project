@@ -33,9 +33,12 @@
             <!-- 级联选择器 -->
             <!-- v-model: 指定选中的值,数组,对应数据源种的value,指定后可以产生默认选择的效果-->
             <!-- :options: 数据源-->
+            <!-- :props="{ checkStrictly: true }" :允许添加任意级分类-->
             <el-cascader
               v-model="selectedCateId"
               :options="selectedCateList"
+              :props="{ checkStrictly: true }"
+              clearable
             ></el-cascader>
           </el-form-item>
 

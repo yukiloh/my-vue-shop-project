@@ -6,7 +6,8 @@ import { Button, Form, FormItem, Input,
   Menu,Submenu,MenuItem,
   Breadcrumb,BreadcrumbItem,
   Card,Row,Col,Table,TableColumn,Switch,Tooltip,
-  Pagination,Dialog,MessageBox,Tag,Tree,Select,Option,Cascader
+  Pagination,Dialog,MessageBox,Tag,Tree,Select,Option,Cascader,
+  Alert,Tabs,TabPane
 } from 'element-ui'
 //导入Message消息提示,与form input不同,他需要进行全局挂载
 
@@ -40,6 +41,9 @@ Vue.use(Tree);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Cascader);
+Vue.use(Alert);
+Vue.use(Tabs);
+Vue.use(TabPane);
 
 Vue.prototype.$message = Message;   //将Message挂载到全局的Vue上
 Vue.prototype.$confirm = MessageBox.confirm;   //与↑一样,需要挂载到Vue上
