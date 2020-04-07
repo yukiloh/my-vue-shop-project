@@ -8,7 +8,7 @@ import './assets/css/global.css'    //需要额外引入css文件
 import axios from 'axios'         //引入axios包
 import VueAxios from 'vue-axios'; //vue-axios的插件包,让vue.use可以使用axios
 
-
+import moment from 'moment'         //引入axios包
 
 Vue.config.productionTip = false;
 
@@ -34,6 +34,8 @@ axios.interceptors.request.use( config => {
 });
 
 //================================================
+//挂载moment
+Vue.prototype.$moment = moment;
 
 
 new Vue({

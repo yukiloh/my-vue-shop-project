@@ -331,6 +331,7 @@
     },
 
     //通过computed来定义会发送动态变化的btn
+    //computed:当对象发生变化时,进行计算
     computed: {
       isBtnDisable() {
         return this.selectedCateId.length !== 3;
