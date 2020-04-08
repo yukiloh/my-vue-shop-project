@@ -5,8 +5,9 @@ import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/user/Users.vue'
 import Goods from '../components/goods/Goods.vue'
-import Categories from '../components/goods/categories.vue'
-import CateParams from '../components/goods/cateParams.vue'
+import AddGoods from '../components/goods/AddGoods.vue'
+import Categories from '../components/goods/Categories.vue'
+import CateParams from '../components/goods/CateParams.vue'
 import Perm from '../components/perms/Perm.vue'
 import Orders from '../components/orders/Orders.vue'
 import Stats from '../components/stats/Stats.vue'
@@ -27,6 +28,7 @@ const routes = [
       {path: '/welcome',component: Welcome},
       {path: '/users',component: Users},
       {path: '/goods',component: Goods},
+      {path: '/addGoods',component: AddGoods},
       {path: '/roles',component: Roles},
       {path: '/orders',component: Orders},
       {path: '/perm',component: Perm},

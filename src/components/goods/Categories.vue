@@ -211,7 +211,7 @@
 
     methods: {
       async getCategories() {
-        const {data:res} = await this.axios.get('categories',{params: this.queryInfo});
+        const {data:res} = await this.axios.get('Categories.vue',{params: this.queryInfo});
         if (res.meta.status !== 200) return this.$message.error('错误,'+res.meta.msg);
         this.categoriesList = res.data.children;
       },

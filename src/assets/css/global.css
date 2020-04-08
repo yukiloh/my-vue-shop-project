@@ -23,3 +23,8 @@ html,body,#app {
 .el-cascader-menu {
   height: 300px;
 }
+
+/* 进度的字体 */
+.el-step__title {
+  font-size: 14px;
+}
