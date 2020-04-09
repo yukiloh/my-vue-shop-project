@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+vue-shop-server/dist
 
 # local env files
 .env.local
@@ -28,3 +29,4 @@ yarn-error.log*
 out
 gen
 #src/plugins/
+
