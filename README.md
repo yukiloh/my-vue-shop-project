@@ -54,3 +54,7 @@ build完后会生成./dist文件夹,内容都在里面了
 需要引入插件```@babel/plugin-syntax-dynamic-import```
 通过将不同的资源分割为不同的包,然后按需加载,具体实现略
 
+
+#### 通过express来运行项目
+启动
+```node ./app.js```

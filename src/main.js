@@ -2,12 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import './plugins/element.js'
-
 import './assets/css/global.css'    //需要额外引入css文件
 
 import axios from 'axios'         //引入axios包
 import VueAxios from 'vue-axios'; //vue-axios的插件包,让vue.use可以使用axios
-
 import moment from 'moment'         //引入axios包
 
 Vue.config.productionTip = false;
