@@ -28,3 +28,8 @@ html,body,#app {
 .el-step__title {
   font-size: 14px;
 }
+
+/*上传图片的宽度*/
+.el-upload-list--picture {
+  width: 300px;
+}

@@ -87,6 +87,7 @@
           {auth_name: '取暖器',price: 25099,mass: 0,created: ''},
           {auth_name: '冷风机',price: 23099,mass: 0,created: ''},
         ],
+        total: 10,
       }
     },
 
