@@ -23,6 +23,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 参考视频地址
 https://www.bilibili.com/video/BV1EE411B7SU
 
+#### 通过vue ui创建项目
+依赖只选择```babel``` 和```router```,不开启历史模式
+
 #### 合并分支
 git checkout 主分支
 
