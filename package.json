@@ -19,7 +19,8 @@
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
-    "vue-router": "^3.1.5"
+    "vue-router": "^3.1.5",
+    "webpack-encoding-plugin": "^0.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

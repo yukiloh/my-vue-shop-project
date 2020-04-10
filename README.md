@@ -58,3 +58,27 @@ build完后会生成./dist文件夹,内容都在里面了
 #### 通过express来运行项目
 启动
 ```node ./app.js```
+
+
+#### 也可以通过nginx来启动
+需要设置    
+```javascript
+//cli3
+module.exports = {
+  publicPath: './', 
+}
+```
+
+
+#### 关于externals的坑
+```javascript
+  config.set('externals',{
+    //import Vue from 'vue'
+    //key对应from,value对应key
+    //也就是说value是可以自定义的,key是官方的库名
+    //如果遇到有-的则key需要加单引号'a-b'
+    vue: 'Vue',
+  });
+```
+
+

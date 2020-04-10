@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
-import './plugins/element.js'
+// import './plugins/element.js'         //element按需加载
+import './plugins/element-prod.js'    //全局加载模式,方便使用外部cdn
+
+
 
 import './assets/css/global.css'    //需要额外引入css文件
 
