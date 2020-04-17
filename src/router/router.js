@@ -26,7 +26,7 @@ const routes = [
     // home路径下的子路由
     children: [
       {path: '/welcome',component: Welcome},
-      {path: '/users',component: Users},
+      {path: '/users',component: Users,},
       {path: '/goods',component: Goods},
       {path: '/addGoods',component: AddGoods},
       {path: '/roles',component: Roles},
